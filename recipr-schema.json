@@ -1,1 +1,84 @@
-
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "description": "schema for recipr recipes",
+  "type": "object",
+  "required": [ "id", "name", "url", "sections", "tags" ],
+  "properties": {
+    "id": {
+      "description": "The unique identifier of the recipe",
+      "type": "integer"
+    },
+    "name": {
+      "description": "Name of the recipe",
+      "type": "string"
+    },
+    "url": {
+      "description": "Url to the recipe",
+      "type": "string"
+    },
+    "sections": {
+      "description": "Sections of this recipe",
+      "type": "array",
+      "items": { "$ref": "#/definitions/section" },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+          "type": "string"
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    }
+  },
+  "definitions": {
+    "section": {
+      "type": "object",
+      "required": [ "preparation", "ingredients" ],
+      "properties": {
+        "name": {
+          "description": "Name of the section",
+          "type": "string"
+        },
+        "preparation": {
+          "description": "Name of the section",
+          "type": "string"
+        },
+        "preparationTime": {
+          "description": "Preparation time of this section in minutes",
+          "type": "integer",
+          "minimum": 0,
+          "exclusiveMinimum": true
+        },
+        "ingredients": {
+          "description": "Ingredients of this section",
+          "type": "array",
+          "items": { "$ref": "#/definitions/ingredient" },
+          "minItems": 1,
+          "uniqueItems": true
+        }
+      }
+    },
+    "ingredient": {
+      "type": "object",
+      "required": [ "name", "quantity", "unit" ],
+      "properties": {
+        "name": {
+          "description": "Name of the ingredient",
+          "type": "string"
+        },
+        "quantity": {
+          "description": "Quantity of ingredient based on unit",
+          "type": "integer",
+          "minimum": 0,
+          "exclusiveMinimum": true
+        },
+        "unit": {
+          "description": "Unit of ingredient ('kg', 'ml', 'cups', 'etc')",
+          "type": "string"
+        }
+      }
+    }
+  }
+}
