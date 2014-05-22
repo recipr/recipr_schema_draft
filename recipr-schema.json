@@ -57,6 +57,11 @@
           "items": { "$ref": "#/definitions/ingredient" },
           "minItems": 1,
           "uniqueItems": true
+        },
+        "assets": {
+          "description": "assets for this section",
+          "type": "array",
+          "items": { "$ref": "#/definitions/asset" }
         }
       }
     },
@@ -79,6 +84,54 @@
           "type": "string"
         }
       }
+    },
+    "asset": {
+      "type": "object",
+      "required": [ "type", "data" ],
+        "properties": {
+        "type": {
+          "type": "string",
+           "enum": ["image","video","embed"]
+        },
+        "data": {
+          "type": "object",
+          "oneOf": [
+            { "$ref": "#/definitions/imageAsset" },
+            { "$ref": "#/definitions/videoAsset" },
+            { "$ref": "#/definitions/embedAsset" }
+          ]
+        }
+      }
+    },
+    "imageAsset": {
+        "type": "object",
+        "required": [ "url" ],
+        "properties": {
+          "url": {
+            "type": "string"
+          },
+          "titleImage": {
+            "type": "boolean"
+          }
+       }
+    },
+    "videoAsset": {
+        "type": "object",
+        "required": [ "url" ],
+        "properties": {
+          "url": {
+            "type": "string"
+          }
+       }
+    },
+    "embedAsset": {
+        "type": "object",
+        "required": [ "embedCode" ],
+        "properties": {
+          "embedCode": {
+            "type": "string"
+          }
+       }
     }
   }
 }
